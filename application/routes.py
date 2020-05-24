@@ -7,7 +7,7 @@ from werkzeug.utils import secure_filename
 from application import app, db, bcrypt
 from application.db_models import Borrower, User
 from application.ml_models import transform_data, credit_model
-from application.forms import RegistrationForm, LoginForm#, RequestResetForm, RequestPasswordForm
+from application.forms import RegistrationForm, LoginForm
 from flask_login import login_user, current_user, logout_user, login_required
 
 
