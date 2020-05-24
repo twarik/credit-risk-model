@@ -12,11 +12,9 @@
 	</head>
 	<body>
 			<header id="header">
-				<h1><strong><a href="{{ url_for('index') }}">ML models</a></strong> WEB API </h1>
+				<h1><strong><a href="{{ url_for('index') }}">Credit Risk ML model</a></strong> WEB API </h1>
 				<nav id="nav">
 					<ul>
-						<!-- <li><a href="{{ url_for('index') }}">Home</a></li> -->
-						<li><a href="{{ url_for('dl') }}">Image prediction</a></li>
 						<li><a href="{{ url_for('credit_score') }}">Predict Credit Risk</a></li>
 						{% if current_user.is_authenticated %}
 							<li><a href="{{ url_for('admin') }}">Database</a></li>
@@ -67,8 +65,7 @@
 						</div>
 						<div class="6u$ 12u$(medium)">
 							<p>Welcome to my first machine learning powered web application</</p>
-							<p>I have deployed a pretrained PyTorch deep learning model for Image Classification to a Flask web service. The model leverages the Microsoft’s ResNet architecture and applies the ImageNet weights for immediate usage (no extra training required), hence it can detect and classify multiple objects within the image</p>
-							<p>I have also deployed an XGBoost machine learning model for predicting the credit risk, classify whether a loan to be given out to a client will be a good or bad loan. This application is connected to a serverless database where all user inputs (transactions) are stored and can be accessed by registered users. Anyone can create an account through the <a class="ml-2" href={{ url_for('register')}}> Sign Up</a> page.</p>
+							<p>I have deployed an XGBoost machine learning model for predicting the credit risk, classify whether a loan to be given out to a client will be a good or bad loan. This application is connected to a serverless database where all user inputs (transactions) are stored and can be accessed by registered users. Anyone can create an account through the <a class="ml-2" href={{ url_for('register')}}> Sign Up</a> page.</p>
 						</div>
 					</div>
 				</div>
