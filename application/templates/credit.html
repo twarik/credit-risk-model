@@ -1,0 +1,79 @@
+{% extends "template.html" %}
+{% block content %}
+<section id="one" class="wrapper style1">
+<div class="container 75%">
+<div class="row 200%">
+  <div class="6u 12u$(medium)">
+    <header>
+      <!-- <h2>{{ title }}</h2> -->
+      <h3>Enter Client's details</h3>
+     <form action="{{ url_for('credit_score')}}" method="post">
+       <!-- <input type="number" name="age" placeholder="Age e.g 28" required="required"  max="100"/> -->
+       <input type="text" name="full_name" placeholder="Full name e.g Allan Smith" required="required"/>
+       <input type="text" name="age" placeholder="Age e.g 28" required="required"  max="100"/>
+       <select id="gender" name="gender" required>
+         <option disabled value="" selected hidden>Select Gender</option>
+         <option value='male'>Male</option>
+         <option value='female'>Female</option>
+       </select>
+       <select id="job" name="job" required>
+         <option disabled value="" selected hidden>Select Job</option>
+         <option value=0>unskilled and non-resident</option>
+         <option value=1>unskilled and resident</option>
+         <option value=2>skilled</option>
+         <option value=3>highly skilled</option>
+       </select>
+       <select id="housing" name="housing" required>
+         <option disabled value="" selected hidden>Select Housing</option>
+         <option value='own'>Own</option>
+         <option value='rent'>Rent</option>
+         <option value='free'>Free</option>
+       </select>
+       <select id="saving" name="saving" required>
+         <option disabled value="" selected hidden>Select Saving accounts</option>
+         <option value='little'>Little</option>
+         <option value='moderate'>Moderate</option>
+         <option value='quite rich'>Quite rich</option>
+         <option value='rich'>rich</option>
+         <option value='na'>N/A</option>
+       </select>
+       <select id="checking" name="checking" required>
+         <option disabled value="" selected hidden>Select Checking accounts</option>
+         <option value='little'>Little</option>
+         <option value='moderate'>Moderate</option>
+         <option value='rich'>Rich</option>
+         <option value='na'>N/A</option>
+       </select>
+       <input type="text" name="credit" placeholder="Credit amount (in Deutsch Mark)" required="required"/>
+       <input type="text" name="duration" placeholder="Duration (in month)" required="required"/>
+       <select id="purpose" name="purpose" required>
+         <option disabled value="" selected hidden>Select Purpose</option>
+         <option value='car'>Car</option>
+         <option value='furniture/equipment'>Furniture/equipment</option>
+         <option value='radio/TV'>radio/TV</option>
+         <option value='domestic appliances'>Domestic appliances</option>
+         <option value='repairs'>Repairs</option>
+         <option value='education'>Education</option>
+         <option value='business'>Business</option>
+         <option value='vacation/others'>Vacation/others</option>
+       </select>
+       <input type="submit" value="Predict" class="special">
+     </form>
+    </header>
+  </div>
+  <div class="feature">
+  </div>
+  <div class="6u$ 12u$(medium)">
+    {% if prediction_text %}
+        <h2>{{ prediction_text }}</h2>
+        <a href="{{ url_for('admin') }}" class="button special big">View Database Entries</a>
+    {% else %}
+        <a class="button big">Please make sure that Age</a>
+        <a class="button special big">credit amount & month are</a>
+        <a class="button big">numeric before you submit</a>
+    {% endif %}
+  </div>
+</div>
+</div>
+</section>
+{% endblock %}
