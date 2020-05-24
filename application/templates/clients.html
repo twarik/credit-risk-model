@@ -1,0 +1,42 @@
+{% extends "template.html" %}
+{% block content %}
+<section id="one" class="wrapper style1">
+<div class="container 80%">
+<h2>Clients Database Entries</h2>
+<table style="width:100%">
+  <tr>
+    <th>No.</th>
+    <th>Name</th>
+    <th>Age</th>
+    <th>Sex</th>
+    <th>Job</th>
+    <th>Housing</th>
+    <th>Saving accounts</th>
+    <th>Checking account</th>
+    <th>Credit amount</th>
+    <th>Duration</th>
+    <th>Purpose</th>
+    <th>Risk</th>
+    <th>Verification Date</th>
+  </tr>
+{% for debtor in debtors %}
+    <tr>
+        <td>{{ debtor.id }}</td>
+        <td>{{ debtor.full_name }}</td>
+        <td>{{ debtor.age }}</td>
+        <td>{{ debtor.sex }}</td>
+        <td>{{ debtor.job }}</td>
+        <td>{{ debtor.housing }}</td>
+        <td>{{ debtor.saving }}</td>
+        <td>{{ debtor.checking }}</td>
+        <td>{{ debtor.credit }}</td>
+        <td>{{ debtor.duration }}</td>
+        <td>{{ debtor.purpose }}</td>
+        <td>{{ debtor.risk }}</td>
+        <td>{{ debtor.date_predicted.strftime('%d-%m-%Y %H:%M:%S') }}</td>
+    </tr>
+{% endfor %}
+</table>
+</div>
+</section>
+{% endblock %}
