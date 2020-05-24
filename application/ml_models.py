@@ -1,7 +1,6 @@
 import io
 import json
 import joblib
-resnet_class_index = json.load(open('./application/resnet_class_index.json'))
 
 def load_model():
      """Load xgboost model."""
