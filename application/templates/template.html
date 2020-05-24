@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		{% if title %}
+			<title> {{ title }} Page </title>
+	  {% else %}
+			<title>ML - API Homepage</title>
+	  {% endif %}
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+	</head>
+	<body>
+			<header id="header">
+				<h1><strong><a href="{{ url_for('index') }}">ML models</a></strong> WEB API </h1>
+				<nav id="nav">
+					<ul>
+						<!-- <li><a href="{{ url_for('index') }}">Home</a></li> -->
+						<li><a href="{{ url_for('dl') }}">Image prediction</a></li>
+						<li><a href="{{ url_for('credit_score') }}">Predict Credit Risk</a></li>
+						{% if current_user.is_authenticated %}
+							<li><a href="{{ url_for('admin') }}">Database</a></li>
+							<li><a href="{{ url_for('logout') }}">Logout</a></li>
+						{% else %}
+							<li><a href="{{ url_for('admin') }}">Database</a></li>
+							<li><a href="{{ url_for('login') }}">Login</a></li>
+						{% endif %}
+					</ul>
+				</nav>
+			</header>
+			<a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+
+		<!-- Flash message -->
+		<div class="container 25%">
+		{% with messages = get_flashed_messages(with_categories=true) %}
+			{% if messages %}
+				{% for category, message in messages %}
+					<div class="alert alert-{{ category }}">
+						{{ message }}
+					</div>
+				{% endfor %}
+			{% endif %}
+		{% endwith %}
+	</div>
+	<!-- Main -->
+					<!-- {% with messages = get_flashed_messages(with_categories=true) %}
+						{% if messages %}
+							{% for category, message in messages %}
+								<div class="alert alert-{{ category }}">
+									{{ message }}
+								</div>
+							{% endfor %}
+						{% endif %}
+					{% endwith %} -->
+					{% block content %}
+			<section id="one" class="wrapper style1">
+				<div class="container 75%">
+					<div class="row 200%">
+						<div class="6u 12u$(medium)">
+							<header class="major">
+								<h2>Web API</h2>
+								<p>Using Python-based Flask framework</p>
+								<div class="image"><P><img src="static/flasklogo.png" alt="" width="200" height="200"/></P></div>
+							</header>
+						</div>
+						<div class="feature">
+						</div>
+						<div class="6u$ 12u$(medium)">
+							<p>Welcome to my first machine learning powered web application</</p>
+							<p>I have deployed a pretrained PyTorch deep learning model for Image Classification to a Flask web service. The model leverages the Microsoft’s ResNet architecture and applies the ImageNet weights for immediate usage (no extra training required), hence it can detect and classify multiple objects within the image</p>
+							<p>I have also deployed an XGBoost machine learning model for predicting the credit risk, classify whether a loan to be given out to a client will be a good or bad loan. This application is connected to a serverless database where all user inputs (transactions) are stored and can be accessed by registered users. Anyone can create an account through the <a class="ml-2" href={{ url_for('register')}}> Sign Up</a> page.</p>
+						</div>
+					</div>
+				</div>
+			</section>
+					{% endblock %}
+
+
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="container">
+					<ul class="icons">
+						<li><a href="http://facebook.com/twariq1" class="icon fa-facebook" target="_blank"></a></li>
+						<li><a href="http://twitter.com/twarikug" class="icon fa-twitter" target="_blank"></a></li>
+						<li><a href="https://github.com/twarik" class="icon fa-github" target="_blank"></a></li>
+						<li><a href="https://www.linkedin.com/in/twarik/" class="icon fa-linkedin" target="_blank"></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>@twarikug</li>
+						<li>Designed By: <a href="https://www.linkedin.com/in/twarik/" target="_blank">TWARIK</a></li>
+					</ul>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<link rel="stylesheet" href="{{ url_for('static', filename='js/jquery.min.js') }}">
+			<link rel="stylesheet" href="{{ url_for('static', filename='js/skel.min.js') }}">
+			<link rel="stylesheet" href="{{ url_for('static', filename='js/util.js') }}">
+			<link rel="stylesheet" href="{{ url_for('static', filename='js/main.js') }}">
+
+	</body>
+</html>
