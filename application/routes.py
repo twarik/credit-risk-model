@@ -6,7 +6,7 @@ from werkzeug.utils import secure_filename
 
 from application import app, db, bcrypt
 from application.db_models import Borrower, User
-from application.ml_models import image_model, transform_data, credit_model
+from application.ml_models import transform_data, credit_model
 from application.forms import RegistrationForm, LoginForm#, RequestResetForm, RequestPasswordForm
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -16,36 +16,7 @@ def index():
     ''' Render home/ landing page '''
     return render_template("template.html")
 
-@app.route('/image_classification', methods=['POST', 'GET'])
-def dl():
-    '''Render page serving the image classification model to allow user to upload image'''
-
-    if request.method == "GET":
-        return render_template("image.html", title ='Image classification')
-
-    if request.method == 'POST':
-        # Access the input (image) stream and keep it in the Filestorage
-        file = request.files['file']
-        #convert the file to bytes
-        image = file.read()
-        # predict the class of the image
-        result = image_model(image)
-        #Select the top three predictions according to their probabilities
-        top1 = '1. %s: %.4f'%(result[0][0], result[0][1])
-        top2 = '2. %s: %.4f'%(result[1][0], result[1][1])
-        top3 = '3. %s: %.4f'%(result[2][0], result[2][1])
-
-        ## In addition to image classification, Let's store the predicted filecd
-        # Save the file to ./uploads
-        basepath = os.path.dirname(__file__)
-        file_path = os.path.join(basepath, 'static/uploads', secure_filename(file.filename))
-        #save image to directory specified ('static/uploads')
-        file.save(file_path)
-        image_file = url_for('static', filename='uploads/'+ secure_filename(file.filename))
-
-        return render_template('image.html', first=top1, second=top2, third=top3, image_file=image_file)
-
-@app.route('/credit_risking', methods=['POST', 'GET'])
+@app.route('/credit_risk', methods=['POST', 'GET'])
 def credit_score():
     '''Render page serving the Credit score prediction model'''
     if request.method == "GET":
