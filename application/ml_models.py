@@ -1,51 +1,15 @@
 import io
 import json
 import joblib
-from PIL import Image
-import torch
-from torchvision import models, transforms
-
 resnet_class_index = json.load(open('./application/resnet_class_index.json'))
 
 def load_model():
-     """Load Pytorch-ResNet50 and sklearn model."""
-     global model
+     """Load xgboost model."""
      global credit_model
-     global titanic_model
-     # Load Pytorch pretrained model with imageNet weights
-     model = models.resnet50(pretrained=True)
-     model.eval()
-     # load sklearn  model
      credit_model = joblib.load("./application/credit_risk_model.pkl")
 
 # Load trained models
 load_model()
-
-def image_model(image_bytes):
-    '''
-    Function to pre-process the input image to a format similar to training data and
-    then make predictions on the image
-    '''
-    # define the various image transformations we have to make
-    transform = transforms.Compose([transforms.Resize(255),
-                                    transforms.CenterCrop(224),
-                                    transforms.ToTensor(),
-                                    transforms.Normalize([0.485, 0.456, 0.406],
-                                                        [0.229, 0.224, 0.225])])
-
-    # Open and identify the uploaded/given image file.
-    image = Image.open(io.BytesIO(image_bytes))
-    # Pre-process the uploaded image
-    tensor = transform(image).unsqueeze(0)
-
-    # Make predictions
-    outputs = model.forward(tensor)
-    _, indices = torch.sort(outputs, descending=True)
-    confidence = torch.nn.functional.softmax(outputs, dim=1)[0]
-
-    # Return the top 3 pedictions ('class label, probability')
-    result = [ (resnet_class_index[str(idx.item())][1], confidence[idx].item()) for idx in indices[0][:5] ]
-    return result
 
 def transform_data(data):
     '''
